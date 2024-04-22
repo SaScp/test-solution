@@ -41,6 +41,7 @@ public class Dispatcher extends Thread {
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
+
     private Logger logger = LoggerFactory.getLogger(Dispatcher.class);
     private JwtFilter jwtFilter;
     private final String token = "{\"kty\" : \"oct\", \"k\" : \"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI\"}";
