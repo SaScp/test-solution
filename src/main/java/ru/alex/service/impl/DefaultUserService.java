@@ -3,7 +3,7 @@ package ru.alex.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.alex.model.ResponseToken;
-import ru.alex.model.Token;
+import ru.alex.model.TransactionModel;
 import ru.alex.model.User;
 import ru.alex.repository.UserRepository;
 import ru.alex.service.JwtService;
@@ -12,6 +12,7 @@ import ru.alex.service.UserService;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 public class DefaultUserService implements UserService {
 
@@ -27,32 +28,37 @@ public class DefaultUserService implements UserService {
 
 
     public Optional<User> findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
 
+
+    public boolean sendMoney(TransactionModel transactionModel) {
+        Optional<User> userFromOptional = userRepository.findByLogin(transactionModel.getUserFrom());
+        Optional<User> userToOptional = userRepository.findByLogin(transactionModel.getUserTo());
+
+        if (userFromOptional.isPresent() && userToOptional.isPresent()) {
+            User currentUserFrom = userFromOptional.get();
+            User currentUserTo = userToOptional.get();
+
+            if (currentUserFrom.getBalance() >= transactionModel.getAmount()) {
+                currentUserFrom.setBalance(currentUserFrom.getBalance() - transactionModel.getAmount());
+                currentUserTo.setBalance(currentUserTo.getBalance() + transactionModel.getAmount());
+                userRepository.update(currentUserFrom);
+                userRepository.update(currentUserTo);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public Optional<User> save(User user) throws JsonProcessingException {
+            user.setId(UUID.randomUUID().toString());
+            user.setBalance(0.0);
+            if (userRepository.save(user)) {
+                return Optional.ofNullable(user);
+            }
         return Optional.empty();
     }
 
-    public String save(User user) throws JsonProcessingException {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (findByLogin(user.getLogin()).isEmpty()) {
-            if (userRepository.save(user)) {
-                ResponseToken token = jwtService.createTokens(user);
-                stringBuilder.append("HTTP/1.1 201 Create\n");
-                stringBuilder.append("Content-Type: application/json\r\n");
-                stringBuilder.append("Date: ").append(Date.from(Instant.now())).append("\r\n").append("\r\n");
-                stringBuilder.append(objectMapper.writeValueAsString(token)).append("\r\n");
-                stringBuilder.append("\r\n");
-                return stringBuilder.toString();
-            }
-        }
-        return sendConflict();
-    }
-    private String sendConflict() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("HTTP/1.1 409 Conflict\n");
-        stringBuilder.append("Content-Type: application/json\r\n");
-        stringBuilder.append("Date: ").append(Date.from(Instant.now())).append("\r\n").append("\r\n");
-        stringBuilder.append(" { \n \"message\" : "+ "\"" + "user already exists" + "\""+ " \n } \r\n");
-        stringBuilder.append("\r\n");
-        return stringBuilder.toString();
-    }
 }

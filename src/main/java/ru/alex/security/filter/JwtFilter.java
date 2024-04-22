@@ -39,6 +39,7 @@ public class JwtFilter {
         if (currentToken.expireAt() == Instant.now()) {
             return Optional.empty();
         }
+
         return userService.findByLogin(currentToken.subject());
     }
 }

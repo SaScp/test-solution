@@ -6,6 +6,7 @@ import ru.alex.dispatcher.Dispatcher;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -24,9 +25,7 @@ public class Main {
                     dispatchers.submit(new Dispatcher(socket));
                 } catch (IOException e) {
                     socket.close();
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                } catch (JOSEException e) {
+                } catch (ParseException | ClassNotFoundException | SQLException | JOSEException e) {
                     throw new RuntimeException(e);
                 }
             }
