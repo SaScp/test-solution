@@ -4,6 +4,8 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jose.jwk.OctetSequenceKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.alex.controller.AuthController;
 import ru.alex.controller.LoginController;
 import ru.alex.controller.MoneyController;
@@ -39,7 +41,7 @@ public class Dispatcher extends Thread {
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
-
+    private Logger logger = LoggerFactory.getLogger(Dispatcher.class);
     private JwtFilter jwtFilter;
     private final String token = "{\"kty\" : \"oct\", \"k\" : \"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI\"}";
 
@@ -121,7 +123,8 @@ public class Dispatcher extends Thread {
 
         } else if (method.equals("GET") && endpoint.equals("/money")) {
             writer.write(SenderDefaultResponse.sendBalance(user.get().getBalance()));
-
+            logger.info("User {} balance is {}$",
+                    user.get().getLogin(), user.get().getBalance());
         } else if (method.equals("POST") && endpoint.equals("/money")) {
 
             if (moneyController.execute(requestBody, user.get().getLogin())) {

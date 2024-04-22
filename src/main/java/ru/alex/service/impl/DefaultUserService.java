@@ -2,6 +2,8 @@ package ru.alex.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.alex.model.ResponseToken;
 import ru.alex.model.TransactionModel;
 import ru.alex.model.User;
@@ -17,13 +19,10 @@ import java.util.UUID;
 public class DefaultUserService implements UserService {
 
     private UserRepository userRepository;
-    private JwtService jwtService;
-    private ObjectMapper objectMapper;
+    private Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
 
     public DefaultUserService(UserRepository userRepository, JwtService jwtService) {
         this.userRepository = userRepository;
-        this.jwtService = jwtService;
-        this.objectMapper = new ObjectMapper();
     }
 
 
@@ -45,6 +44,8 @@ public class DefaultUserService implements UserService {
                 currentUserTo.setBalance(currentUserTo.getBalance() + transactionModel.getAmount());
                 userRepository.update(currentUserFrom);
                 userRepository.update(currentUserTo);
+                logger.info("User {} was send {}$ to the user {}",
+                        currentUserFrom.getLogin(), transactionModel.getAmount(), currentUserTo.getLogin());
                 return true;
             }
         }
@@ -52,7 +53,7 @@ public class DefaultUserService implements UserService {
 
     }
 
-    public Optional<User> save(User user) throws JsonProcessingException {
+    public Optional<User> save(User user) {
             user.setId(UUID.randomUUID().toString());
             user.setBalance(0.0);
             if (userRepository.save(user)) {

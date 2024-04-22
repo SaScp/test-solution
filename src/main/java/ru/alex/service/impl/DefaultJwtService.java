@@ -7,7 +7,7 @@ import ru.alex.security.jwt.factory.TokenFactory;
 import ru.alex.security.jwt.serializer.TokenJwsStringSerializer;
 import ru.alex.service.JwtService;
 
-import java.util.UUID;
+
 
 public class DefaultJwtService implements JwtService {
 
