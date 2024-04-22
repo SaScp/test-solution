@@ -1,10 +1,9 @@
 package ru.alex.controller;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.alex.model.RequestTransactionModel;
-import ru.alex.model.TransactionModel;
+import ru.alex.model.transaction.RequestTransactionModel;
+import ru.alex.model.transaction.TransactionModel;
 import ru.alex.service.UserService;
 
 import java.io.IOException;

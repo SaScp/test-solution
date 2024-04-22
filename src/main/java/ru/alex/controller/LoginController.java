@@ -2,10 +2,8 @@ package ru.alex.controller;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ru.alex.model.ResponseToken;
 import ru.alex.model.User;
 import ru.alex.service.AuthenticationService;
-import ru.alex.service.UserService;
 import ru.alex.util.SenderDefaultResponse;
 
 import java.io.IOException;

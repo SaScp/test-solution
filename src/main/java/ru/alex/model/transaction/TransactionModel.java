@@ -1,4 +1,4 @@
-package ru.alex.model;
+package ru.alex.model.transaction;
 
 public class TransactionModel {
     private String userFrom;

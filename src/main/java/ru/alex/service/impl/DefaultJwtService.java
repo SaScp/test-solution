@@ -1,7 +1,7 @@
 package ru.alex.service.impl;
 
-import ru.alex.model.ResponseToken;
-import ru.alex.model.Token;
+import ru.alex.model.token.ResponseToken;
+import ru.alex.model.token.Token;
 import ru.alex.model.User;
 import ru.alex.security.jwt.factory.TokenFactory;
 import ru.alex.security.jwt.serializer.TokenJwsStringSerializer;

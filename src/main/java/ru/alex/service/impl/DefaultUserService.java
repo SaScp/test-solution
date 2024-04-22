@@ -1,18 +1,13 @@
 package ru.alex.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.alex.model.ResponseToken;
-import ru.alex.model.TransactionModel;
+import ru.alex.model.transaction.TransactionModel;
 import ru.alex.model.User;
 import ru.alex.repository.UserRepository;
 import ru.alex.service.JwtService;
 import ru.alex.service.UserService;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 

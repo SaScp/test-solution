@@ -3,7 +3,7 @@ package ru.alex.security.jwt.serializer;
 
 
 
-import ru.alex.model.Token;
+import ru.alex.model.token.Token;
 
 import java.util.function.Function;
 

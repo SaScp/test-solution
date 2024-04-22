@@ -4,7 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import ru.alex.model.Token;
+import ru.alex.model.token.Token;
 
 
 import java.text.ParseException;

@@ -11,7 +11,6 @@ import ru.alex.controller.LoginController;
 import ru.alex.controller.MoneyController;
 import ru.alex.controller.RegistrationController;
 
-import ru.alex.model.TransactionModel;
 import ru.alex.model.User;
 import ru.alex.repository.UserRepository;
 import ru.alex.security.filter.JwtFilter;
@@ -30,7 +29,6 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.Instant;
 import java.util.*;
 
 public class Dispatcher extends Thread {

@@ -1,11 +1,9 @@
 package ru.alex.security.filter;
 
-import ru.alex.model.Token;
+import ru.alex.model.token.Token;
 import ru.alex.model.User;
 import ru.alex.security.jwt.deserializer.TokenJwsStringDeserializer;
-import ru.alex.security.jwt.factory.TokenFactory;
 import ru.alex.service.UserService;
-import ru.alex.service.impl.DefaultUserService;
 
 import java.time.Instant;
 import java.util.Map;

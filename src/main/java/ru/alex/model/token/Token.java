@@ -1,7 +1,6 @@
-package ru.alex.model;
+package ru.alex.model.token;
 
 import java.time.Instant;
-import java.util.List;
 
 public record Token(String id, String subject, Instant createAt, Instant expireAt) {
 }

@@ -4,7 +4,7 @@ package ru.alex.security.jwt.deserializer;
 
 
 
-import ru.alex.model.Token;
+import ru.alex.model.token.Token;
 
 import java.util.function.Function;
 

@@ -2,7 +2,7 @@ package ru.alex.security.jwt.factory;
 
 ;
 
-import ru.alex.model.Token;
+import ru.alex.model.token.Token;
 import ru.alex.model.User;
 
 import java.time.Duration;

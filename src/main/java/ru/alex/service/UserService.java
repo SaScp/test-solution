@@ -1,8 +1,7 @@
 package ru.alex.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ru.alex.model.ResponseToken;
-import ru.alex.model.TransactionModel;
+import ru.alex.model.transaction.TransactionModel;
 import ru.alex.model.User;
 
 import java.util.Optional;
