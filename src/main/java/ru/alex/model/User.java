@@ -12,6 +12,7 @@ public class User {
 
     public User() {
     }
+
     public User(String id, String login, String password, Double balance) {
         this.id = id;
         this.login = login;

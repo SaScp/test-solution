@@ -54,8 +54,7 @@ public class Dispatcher extends Thread {
                 new DefaultTokenJwsStringSerializer(new MACSigner(OctetSequenceKey.parse(token)))));
         AuthenticationService authenticationService = new DefaultAuthenticationService(userService, new DefaultJwtService(new DefaultTokenFactory(),
                 new DefaultTokenJwsStringSerializer(new MACSigner(OctetSequenceKey.parse(token)))));
-        this.jwtFilter = new JwtFilter(new DefaultTokenFactory(),
-                new DefaultTokenJwsStringDeserializer(
+        this.jwtFilter = new JwtFilter(new DefaultTokenJwsStringDeserializer(
                         new MACVerifier(OctetSequenceKey.parse(token))
                 ), userService);
 

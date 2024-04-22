@@ -40,37 +40,30 @@ public class DefaultAuthenticationService implements AuthenticationService {
                 } catch (JsonProcessingException e) {
                     return SenderDefaultResponse.sendBadRequest();
                 }
+            } else {
+                return SenderDefaultResponse.sendUnauthorized();
             }
+        } else {
+            return SenderDefaultResponse.sendUnauthorized();
         }
-        logger.info("User {} was registered", user.getLogin());
-        return null;
     }
 
     @Override
     public String registration(User user) throws JsonProcessingException {
-
+        if (userService.findByLogin(user.getLogin()).isPresent()) {
+            logger.info("User {} was registered", user.getLogin());
+            return SenderDefaultResponse.sendConflict();
+        }
         Optional<User> userOptional = userService.save(user);
 
         if (userOptional.isPresent()) {
-            if (userService.findByLogin(user.getLogin()).isPresent()) {
-                logger.info("User {} was registered", user.getLogin());
-                return SenderDefaultResponse.sendConflict();
-            }
-
-            StringBuilder stringBuilder = new StringBuilder();
             ResponseToken token = jwtService.createTokens(user);
-
-            stringBuilder.append("HTTP/1.1 201 Create\n");
-            stringBuilder.append("Content-Type: application/json\r\n");
-            stringBuilder.append("Date: ").append(Date.from(Instant.now())).append("\r\n").append("\r\n");
-            stringBuilder.append(objectMapper.writeValueAsString(token)).append("\r\n");
-            stringBuilder.append("\r\n");
             logger.info("User {} was registered", user.getLogin());
-            return stringBuilder.toString();
-        } else {
-            return SenderDefaultResponse.sendBadRequest();
-        }
 
+            return SenderDefaultResponse.sendCreate(objectMapper.writeValueAsString(token));
+        } else {
+            return SenderDefaultResponse.sendConflict();
+        }
 
     }
 }

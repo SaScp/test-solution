@@ -65,4 +65,10 @@ public class SenderDefaultResponse {
                 "Date: " + Date.from(Instant.now()) + "\r\n\r\n" +
                 jsonValue;
     }
+    public static String sendCreate(String jsonValue) {
+        return "HTTP/1.1 201 Create\\n" +
+                "Content-Type: application/json\r\n" +
+                "Date: " + Date.from(Instant.now()) + "\r\n\r\n" +
+                jsonValue;
+    }
 }

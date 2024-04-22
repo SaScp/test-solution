@@ -13,14 +13,13 @@ import java.util.Optional;
 
 public class JwtFilter {
 
-    private final TokenFactory tokenFactory;
+
     private final TokenJwsStringDeserializer tokenJwsStringDeserializer;
     private final UserService userService;
 
-    public JwtFilter(TokenFactory tokenFactory,
+    public JwtFilter(
                      TokenJwsStringDeserializer tokenJwsStringDeserializer,
                      UserService userService) {
-        this.tokenFactory = tokenFactory;
         this.tokenJwsStringDeserializer = tokenJwsStringDeserializer;
         this.userService = userService;
     }
