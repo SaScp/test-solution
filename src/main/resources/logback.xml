@@ -4,7 +4,7 @@
         <file>logFile.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS}: %msg%n</pattern>
+            <pattern>%d: %msg%n</pattern>
         </encoder>
     </appender>
 
