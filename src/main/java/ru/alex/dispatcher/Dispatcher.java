@@ -111,6 +111,7 @@ public class Dispatcher extends Thread {
         } else {
             roting(endpoint, method, requestBody, user);
         }
+        writer.flush();
     }
 
     private void roting(String endpoint, String method, String requestBody, Optional<User> user) throws IOException {
@@ -121,7 +122,6 @@ public class Dispatcher extends Thread {
         } else {
             moneyRouting(endpoint, method, requestBody, user);
         }
-        writer.flush();
     }
 
     private void moneyRouting(String endpoint, String method, String requestBody, Optional<User> user) throws IOException {

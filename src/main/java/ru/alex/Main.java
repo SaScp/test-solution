@@ -18,6 +18,7 @@ public class Main {
     private static ExecutorService dispatchers = Executors.newFixedThreadPool(10);
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(8080);
+        System.out.println("SERVER START");
         try {
             while (true) {
                 Socket socket = server.accept();
@@ -30,6 +31,7 @@ public class Main {
                 }
             }
         } finally {
+            System.out.println("SERVER STOP");
             server.close();
         }
     }

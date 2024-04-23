@@ -4,3 +4,8 @@
 23:43:31.523: User alex was login
 23:43:43.237: User alex4 was registered
 23:44:03.070: User alex2 was login
+2024-04-23 11:49:15,237: User alex was registered
+2024-04-23 11:49:45,005: User alex was login
+2024-04-23 11:50:37,883: User alex2 was registered
+2024-04-23 11:51:40,548: User alex was send 500.0$ to the user alex2
+2024-04-23 11:51:52,515: User alex balance is 0.0$
