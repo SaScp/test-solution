@@ -54,8 +54,8 @@ public class Dispatcher extends Thread {
         AuthenticationService authenticationService = new DefaultAuthenticationService(userService, new DefaultJwtService(new DefaultTokenFactory(),
                 new DefaultTokenJwsStringSerializer(new MACSigner(OctetSequenceKey.parse(token)))));
         this.jwtFilter = new JwtFilter(new DefaultTokenJwsStringDeserializer(
-                        new MACVerifier(OctetSequenceKey.parse(token))
-                ), userService);
+                new MACVerifier(OctetSequenceKey.parse(token))
+        ), userService);
 
 
         socketInit(socket);
@@ -118,21 +118,24 @@ public class Dispatcher extends Thread {
 
         if (method.equals("POST") && endpoint.equals("/signup") || endpoint.equals("/signin")) {
             writer.write(controller.execute(requestBody));
+        } else {
+            moneyRouting(endpoint, method, requestBody, user);
+        }
+        writer.flush();
+    }
 
-        } else if (method.equals("GET") && endpoint.equals("/money")) {
+    private void moneyRouting(String endpoint, String method, String requestBody, Optional<User> user) throws IOException {
+        if (method.equals("GET") && endpoint.equals("/money")) {
             writer.write(SenderDefaultResponse.sendBalance(user.get().getBalance()));
             logger.info("User {} balance is {}$",
                     user.get().getLogin(), user.get().getBalance());
-        } else if (method.equals("POST") && endpoint.equals("/money")) {
 
+        } else if (method.equals("POST") && endpoint.equals("/money")) {
             if (moneyController.execute(requestBody, user.get().getLogin())) {
                 writer.write(SenderDefaultResponse.sendOk());
-
             } else {
                 writer.write(SenderDefaultResponse.sendBadRequest());
-
             }
         }
-        writer.flush();
     }
 }
